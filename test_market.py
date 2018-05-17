@@ -42,6 +42,7 @@ def test_store(store_, own, alien):
 
 
 if __name__ == "__main__":
+
     # Create GOODS
     banana = good.Banana(10)
     apple = good.Apple(30)
@@ -49,17 +50,22 @@ if __name__ == "__main__":
     nail = good.Nail(50)
     axe = good.Axe(150)
     axe.set_discount(17)
+
     # TEST BANANA
     test_good(banana)
+
     # BUILD STORES
     bm = store.GroceryStore()
     bm.add_items(apple, banana)
     ml = store.HardwareGood()
     ml.add_items(nail, axe)
+
     # TEST BELMARKET
     test_store(bm, own=apple, alien=axe)
+
     # TEST MILE
     test_store(ml, own=axe, alien=apple)
+
     # CHECK DISCOUNT IN STORES
     print("\nBelmarket [no discount]: {}".format(bm.overall_price_no_discount()))
     print("Belmarket [discount]: {}".format(bm.overall_price_with_discount()))
