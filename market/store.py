@@ -11,7 +11,7 @@ class Store(object):
         super(Store, self).__init__()
 
     def add_item(self, item):
-        self._check_goods(tuple(item))          # CONVERT good to tuple for maintaining of operation iter
+        self._check_goods((item,))          # CONVERT good to tuple for maintaining of operation iter
         self._goods.add(item)                   # ADD new good in our Store
 
     def add_items(self, *items, **kwargs):
