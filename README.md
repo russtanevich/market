@@ -17,21 +17,3 @@ Using your knowledge about class attributes operators:
 12.Shops must allow adding goods of their supported types only – Grocery stores accept goods of Food type only, Hardware stores can add Tools only.
 TypeError must be raised for incompatible items.
 13.Shops allow having same goods of different prices, mind that.
-
-Example:
-
-belmarket = GroceryStore()
-bananas = Banana(6)  # create a banana with 6$ price
-strawberry = Strawberry(22)  # create a strawberry with 22$ price
-belmarket.add_item(bananas)
-belmarket.add_item(strawberry)
-print(belmarket.overall_price_no_discount())  # -> outputs 6+22 -> 28
-
-belmarket.remove_item(strawberry)
-strawberry.set_discount(50)
-strawberry.freeze_price(True)
-belmarket.add_item(strawberry)
-print(belmarket.overall_price_no_discount())  # -> outputs 6+(22/100*50) -> 17
-
-hammer = Hammer(50)
-belmarket.add_item(hammer)  # -> TypeError("Incorrect product assignment!") should be raised
