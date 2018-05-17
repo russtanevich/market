@@ -63,8 +63,11 @@ if __name__ == "__main__":
     # CHECK DISCOUNT IN STORES
     print("\nBelmarket [no discount]: {}".format(bm.overall_price_no_discount()))
     print("Belmarket [discount]: {}".format(bm.overall_price_with_discount()))
+    bm.remove_item(apple)
+    print("Belmarket [discount] (removed apple): {}".format(bm.overall_price_with_discount()))
     print("Mile [no discount]: {}".format(ml.overall_price_no_discount()))
     print("Mile [discount]: {}".format(ml.overall_price_with_discount()))
+
 
 
 

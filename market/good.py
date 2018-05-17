@@ -9,10 +9,12 @@ class Good(object):
 
     @property
     def price(self):
+        """Get price with discount percent"""
         return self.__price * (100 - self.__discount) / 100
 
     @price.setter
     def price(self, value):
+        """Check of value for validity"""
         if self.freeze:
             raise AttributeError("The price is freeze!")
         elif isinstance(value, (int, float)) and value > 0:
@@ -22,10 +24,12 @@ class Good(object):
 
     @property
     def discount(self):
+        """Just return discount percent"""
         return self.__discount
 
     @discount.setter
     def discount(self, value):
+        """Check of value for validity"""
         if self.freeze:
             raise AttributeError("The discount is freeze!")
         if isinstance(value, (int, float)) and (0 <= value <= 100):
@@ -45,6 +49,7 @@ class Good(object):
 
     @freeze.setter
     def freeze(self, value):
+        """Check of value for validity"""
         if isinstance(value, bool):
             self.__freeze = value
         else:
