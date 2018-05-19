@@ -16,7 +16,7 @@ class Store(object):
         self._check_goods((item,))          # CONVERT good to tuple for maintaining of operation iter
         self._goods.add(item)               # ADD new good in our Store
 
-    def add_items(self, *items, **kwargs):
+    def add_items(self, *items):
         """ADD array of items"""
         self._check_goods(items)
         self._goods.update(items)
@@ -32,19 +32,11 @@ class Store(object):
 
     def overall_price_no_discount(self):
         """Calculate all value of no-discount goods in the store"""
-        price = 0
-        for item in self._goods:
-            if not item.discount:
-                price += item.price
-        return price
+        return sum(item.price for item in self._goods if not item.discount)
 
     def overall_price_with_discount(self):
         """Calculate all value of discount goods in the store"""
-        price = 0
-        for item in self._goods:
-            if item.discount:
-                price += item.price
-        return price
+        return sum(item.price for item in self._goods if item.discount)
 
     def _check_goods(self, items):
         """Check goods for validity"""
