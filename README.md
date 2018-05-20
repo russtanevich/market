@@ -18,11 +18,21 @@ Using your knowledge about class attributes operators:
 
 9.      remove_item(item) and remove_items(*items). Allow optional count argument to define how many items are going to be added.
 
-10.   calculate overall goods price currently available (without discount)
+10.     calculate overall goods price currently available (without discount)
 
-11.   calculate overall goods price currently available (with discount)
+11.     calculate overall goods price currently available (with discount)
 
-12.   Shops must allow adding goods of their supported types only – Grocery stores accept goods of Food type only, Hardware stores can add Tools only.
+12.     Shops must allow adding goods of their supported types only – Grocery stores accept goods of Food type only, Hardware stores can add Tools only.
 TypeError must be raised for incompatible items.
 
-13.   Shops allow having same goods of different prices, mind that.
+13.     Shops allow having same goods of different prices, mind that.
+
+Again, there are some additional requirements, let me remind.
+
+1.      Create additional class of Drugstore, which can operate with items like all Drugs, Food and Cosmetics.
+
+2.      Let food stores check if the goods are not expired, when trying to add them.
+
+3.      Drugstores cannot have more than 3 food positions and raises ValueError when try to set more.
+
+4.      Every discount in drugstore halves itself when being set.
