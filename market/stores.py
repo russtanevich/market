@@ -34,9 +34,10 @@ class Store(object):
         self._set_part_discount(item)
         self._goods.add(item)               # ADD new good in our Store
 
-    def add_items(self, *items):
-        """ADD array of items"""
-        for item in items:
+    def add_items(self, *items, **kwargs):
+        """ADD array of items to the store."""
+        count = kwargs.get("count")
+        for item in items[:count]:
             self.add_item(item)
 
     def remove_item(self, item):
