@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """ Home task for Class 11 """
+from datetime import datetime
 from sys import exc_info
-from market import good
-from market import store
+from market import goods
+from market import stores
 
 
 def _try_test(obj, err,  stmt, description, **kw):
@@ -16,7 +17,7 @@ def _try_test(obj, err,  stmt, description, **kw):
 def test_good(prod):
 
     test_data = (
-        (TypeError, "obj.price = -10", "SET NEGATIVE PRICE"),
+        (ValueError, "obj.price = -10", "SET NEGATIVE PRICE"),
         (TypeError, "obj.discount = 'abc'", "SET WRONG DISCOUNT"),
         (BaseException, "obj.freeze_price(True)", "FREEZE PRICE"),
         (AttributeError, "obj.price = 10", "SET FREEZED PRICE"),
@@ -44,35 +45,42 @@ def test_store(store_, own, alien):
 if __name__ == "__main__":
 
     # Create GOODS
-    banana = good.Banana(10)
-    apple = good.Apple(30)
+    dd = datetime.strptime("12-12-2018", "%d-%m-%Y")
+    banana = goods.Banana(10, dd)
+    apple = goods.Apple(30, dd)
     apple.set_discount(15)
-    nail = good.Nail(50)
-    axe = good.Axe(150)
+
+    nail = goods.Nail(50, dd)
+    axe = goods.Axe(150, dd)
     axe.set_discount(17)
+
+    # BUILD STORES
+    belmarket = stores.GroceryStore()
+    belmarket.add_items(apple, banana)
+
+    apt = stores.DrugStore()
+    for i in range(5):
+        apt.add_items(apple, banana)
+
+    mile = stores.HardwareStore()
+    mile.add_items(nail, axe)
+
+    # CHECK DISCOUNT IN STORES
+    print("\nBelmarket [no discount]: {}".format(belmarket.overall_price_no_discount()))
+    print("Belmarket [discount]: {}".format(belmarket.overall_price_with_discount()))
+    belmarket.remove_item(apple)
+    print("Belmarket [discount] (removed apple): {}".format(belmarket.overall_price_with_discount()))
+    print("Mile [no discount]: {}".format(mile.overall_price_no_discount()))
+    print("Mile [discount]: {}".format(mile.overall_price_with_discount()))
 
     # TEST BANANA
     test_good(banana)
-
-    # BUILD STORES
-    bm = store.GroceryStore()
-    bm.add_items(apple, banana)
-    ml = store.HardwareGood()
-    ml.add_items(nail, axe)
-
     # TEST BELMARKET
-    test_store(bm, own=apple, alien=axe)
-
+    test_store(belmarket, own=apple, alien=axe)
     # TEST MILE
-    test_store(ml, own=axe, alien=apple)
+    test_store(mile, own=axe, alien=apple)
 
-    # CHECK DISCOUNT IN STORES
-    print("\nBelmarket [no discount]: {}".format(bm.overall_price_no_discount()))
-    print("Belmarket [discount]: {}".format(bm.overall_price_with_discount()))
-    bm.remove_item(apple)
-    print("Belmarket [discount] (removed apple): {}".format(bm.overall_price_with_discount()))
-    print("Mile [no discount]: {}".format(ml.overall_price_no_discount()))
-    print("Mile [discount]: {}".format(ml.overall_price_with_discount()))
+
 
 
 
