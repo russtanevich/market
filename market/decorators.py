@@ -9,8 +9,7 @@ from datetime import datetime
 def check_expired(func):
     """THE DECO FOR <ADD_ITEM> method for checking expired item """
     @functools.wraps(func)
-    def inner(*args, **kwargs):
-        store, item = args
+    def inner(store, item):
         date_today = datetime.now()
         date_expired = item.date_expired
         # IF GOOD IS EXPIRED
@@ -18,15 +17,14 @@ def check_expired(func):
             raise ValueError("{} is expired in {}. Today: {}".format(
                 item, date_expired, date_today
             ))
-        func(*args, **kwargs)
+        func(store, item)
     return inner
 
 
 def check_allowed_num(func):
     """ THE DECO FOR <ADD_ITEM> method for checking allowed quantity of constraint goods """
     @functools.wraps(func)
-    def inner(*args, **kwargs):
-        store, item = args
+    def inner(store, item):
         # IS THERE constraint position in MRO?
         constraint_item = (set(type(item).mro()) & set(store.constraint_positions))
         if constraint_item:
@@ -43,7 +41,7 @@ def check_allowed_num(func):
                     constraint_item, store, max_quantity, current_quantity)
                 )
 
-        func(*args, **kwargs)
+        func(store, item)
 
     return inner
 
@@ -51,10 +49,9 @@ def check_allowed_num(func):
 def set_half_discount(func):
     """CHANGE METHOD <SET DISCOUNT> IN OUR ITEM"""
     @functools.wraps(func)
-    def inner(*args, **kwargs):
-        store, item = args
+    def inner(store, item):
         item.set_discount = half_discount(item.set_discount)
-        func(*args, **kwargs)
+        func(store, item)
     return inner
 
 
